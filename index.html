@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kita Finder & Tracker - Neuperlach (Munich)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-light: #eff6ff;
+      --success: #16a34a;
+      --warning: #ca8a04;
+      --danger: #dc2626;
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text: #0f172a;
+      --text-muted: #64748b;
+      --border: #e2e8f0;
+      --radius: 12px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      padding: 24px 16px 60px;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+
+    header {
+      background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+      color: white;
+      padding: 28px;
+      border-radius: var(--radius);
+      margin-bottom: 24px;
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.15);
+    }
+
+    header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    header p {
+      color: #bfdbfe;
+      font-size: 0.95rem;
+    }
+
+    .info-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 16px;
+      margin-top: 20px;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+
+    .info-bar div strong {
+      color: #ffffff;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      background: var(--card-bg);
+      padding: 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 24px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .filter-group input,
+    .filter-group select,
+    .btn {
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      border: 1px solid var(--border);
+      outline: none;
+      font-family: inherit;
+    }
+
+    .filter-group input:focus,
+    .filter-group select:focus {
+      border-color: var(--primary);
+    }
+
+    .btn {
+      cursor: pointer;
+      font-weight: 500;
+      background: var(--card-bg);
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn:hover {
+      background: #f1f5f9;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      border-color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      background: #1d4ed8;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      padding: 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .stat-card .num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .stat-card .label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .table-container {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      overflow-x: auto;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.9rem;
+    }
+
+    thead {
+      background: #f8fafc;
+      border-bottom: 2px solid var(--border);
+    }
+
+    th {
+      padding: 14px 16px;
+      font-weight: 600;
+      color: #334155;
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+
+    tr:hover td {
+      background: #fafafa;
+    }
+
+    .kita-name {
+      font-weight: 600;
+      font-size: 1rem;
+      color: #1e293b;
+      margin-bottom: 4px;
+    }
+
+    .kita-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    .badge-staedtisch { background: #dbeafe; color: #1e40af; }
+    .badge-kirchlich { background: #fef3c7; color: #92400e; }
+    .badge-frei { background: #dcfce7; color: #166534; }
+    .badge-privat { background: #f3e8ff; color: #6b21a8; }
+
+    .age-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: #f1f5f9;
+      color: #0f172a;
+      border: 1px solid #cbd5e1;
+      padding: 2px 7px;
+      border-radius: 6px;
+      font-size: 0.74rem;
+      font-weight: 600;
+      margin-top: 5px;
+    }
+
+    /* Fee breakdown card styling */
+    .fee-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 0.82rem;
+    }
+
+    .fee-total {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 6px;
+      padding-bottom: 6px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .fee-total .pill-approx {
+      font-size: 0.72rem;
+      font-weight: 600;
+      background: #dbeafe;
+      color: #1e40af;
+      padding: 2px 6px;
+      border-radius: 4px;
+    }
+
+    .fee-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      color: #475569;
+    }
+
+    .fee-list li {
+      margin-bottom: 3px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .fee-list li span.val {
+      font-weight: 600;
+      color: #0f172a;
+      white-space: nowrap;
+    }
+
+    .fee-extra {
+      margin-top: 6px;
+      font-size: 0.75rem;
+      color: #64748b;
+      font-style: italic;
+    }
+
+    .quality-notes {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      color: #334155;
+      background: #ffffff;
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      display: flex;
+      gap: 5px;
+    }
+
+    .commute-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #f1f5f9;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      margin-bottom: 4px;
+      margin-right: 4px;
+    }
+
+    .status-select {
+      width: 100%;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      font-size: 0.85rem;
+      font-weight: 500;
+      background: white;
+      cursor: pointer;
+    }
+
+    .rating-stars {
+      color: #e2e8f0;
+      cursor: pointer;
+      font-size: 1.1rem;
+      display: inline-flex;
+      gap: 2px;
+      user-select: none;
+    }
+
+    .rating-stars .filled {
+      color: #f59e0b;
+    }
+
+    .notes-box {
+      width: 100%;
+      min-height: 54px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 0.83rem;
+      font-family: inherit;
+      resize: vertical;
+      background: #fafafa;
+      transition: background 0.15s ease;
+    }
+
+    .notes-box:focus {
+      background: white;
+      border-color: var(--primary);
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      margin-bottom: 4px;
+    }
+
+    .contact-item a {
+      color: var(--primary);
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .contact-item a:hover {
+      text-decoration: underline;
+    }
+
+    .help-section {
+      margin-top: 32px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .help-section h2 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      color: #1e293b;
+    }
+
+    .help-section p, .help-section li {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.6;
+    }
+
+    .help-section ul {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+
+    .help-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .help-card {
+      background: #f8fafc;
+      padding: 16px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .help-card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+      color: #1e3a8a;
+    }
+
+    /* Auth & Sync Bar */
+    .sync-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #ffffff;
+      padding: 12px 18px;
+      border-radius: var(--radius);
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .sync-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #94a3b8;
+    }
+
+    .status-dot.online { background: #16a34a; }
+    .status-dot.syncing { background: #eab308; animation: pulse 1s infinite; }
+    .status-dot.offline { background: #dc2626; }
+
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+
+    .auth-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .auth-actions input {
+      padding: 6px 10px;
+      font-size: 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+    }
+
+    .btn-sm {
+      padding: 6px 12px;
+      font-size: 0.82rem;
+    }
+
+    @media (max-width: 768px) {
+      .toolbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .filter-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
+  <!-- Firebase SDKs (Compat version for zero-build HTML) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+</head>
+<body>
+
+  <div class="container">
+
+    <header>
+      <h1>🎒 Kita Finder & Communication Tracker</h1>
+      <p>Kindergarten applications starting September 2027 (Children entering Ü3 at age 3)</p>
+      
+      <div class="info-bar">
+        <div>
+          <strong>📍 Area</strong>
+          Neuperlach Süd, 81739 München
+        </div>
+        <div>
+          <strong>🧒 Age Group & Target Start</strong>
+          Ü3 (Age 3) &bull; Start: September 2027
+        </div>
+        <div>
+          <strong>💶 Expected Costs (Ü3)</strong>
+          Public/subsidized: Tuition largely €0 (plus ~€105/mo lunch)
+        </div>
+        <div>
+          <strong>⚡ Application Window</strong>
+          Usually Jan - Mar 2027 via kitafinder.muenchen.de
+        </div>
+      </div>
+    </header>
+
+    <!-- Cloud Sync & Auth Bar -->
+    <div class="sync-bar" id="syncBar">
+      <div class="sync-status">
+        <span class="status-dot" id="syncDot"></span>
+        <span id="syncText">Local Mode (No Cloud Configured)</span>
+      </div>
+      <div class="auth-actions" id="authActions">
+        <!-- Will show Login form or User status -->
+        <button class="btn btn-sm" onclick="promptFirebaseConfig()">⚙️ Configure Cloud Sync</button>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <div class="num" id="stat-total">0</div>
+        <div class="label">Total Nearby</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="stat-contacted">0</div>
+        <div class="label">In Progress</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="stat-applied">0</div>
+        <div class="label">Applied</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="stat-offered">0</div>
+        <div class="label">Offers</div>
+      </div>
+    </div>
+
+    <div class="toolbar">
+      <div class="filter-group">
+        <input type="text" id="searchInput" placeholder="🔍 Search name, street, provider..." style="min-width: 240px;">
+        
+        <select id="statusFilter">
+          <option value="ALL">All Statuses</option>
+          <option value="Not Contacted">Not Contacted</option>
+          <option value="Contacted / Info Day">Contacted / Info Day</option>
+          <option value="Applied (Kita-Finder)">Applied (Kita-Finder)</option>
+          <option value="Waitlist">Waitlist</option>
+          <option value="Offered Place">Offered Place 🎉</option>
+          <option value="Declined / Full">Declined / Full</option>
+        </select>
+
+        <select id="typeFilter">
+          <option value="ALL">All Providers</option>
+          <option value="Städtisch">Städtisch (City of Munich)</option>
+          <option value="Kirchlich">Kirchlich (Caritas / Diakonie / Kath.)</option>
+          <option value="Freier Träger / AWO">AWO / Gemeinnützig</option>
+          <option value="Privat / Förderformel">Privat (Denk mit! etc.)</option>
+        </select>
+
+        <select id="sortFilter">
+          <option value="distance">Sort: Distance (Nearest first)</option>
+          <option value="rating">Sort: Your Priority Rating</option>
+          <option value="name">Sort: Name (A-Z)</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <button class="btn btn-primary" onclick="exportData()">💾 Export JSON</button>
+        <button class="btn" onclick="document.getElementById('importFile').click()">📥 Import</button>
+        <input type="file" id="importFile" style="display:none" onchange="importData(event)">
+        <button class="btn" onclick="addNewKita()">➕ Add Custom Kita</button>
+      </div>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 230px;">Kita & Provider</th>
+            <th style="width: 160px;">Commute from Home</th>
+            <th style="width: 190px;">Contact & Links</th>
+            <th style="min-width: 290px;">Fees & Quality Breakdown</th>
+            <th style="width: 100px;">Priority</th>
+            <th style="width: 170px;">Application Status</th>
+            <th style="min-width: 190px;">Your Notes & Log</th>
+          </tr>
+        </thead>
+        <tbody id="kitaTableBody">
+          <!-- Populated by JS -->
+        </tbody>
+      </table>
+    </div>
+
+    <section class="help-section">
+      <h2>💡 Practical Guide for Munich Kita Applications (Ü3 - Kindergarten)</h2>
+      <div class="help-grid">
+        <div class="help-card">
+          <h3>1. Central Application System</h3>
+          <p>The primary registration must be done via the official portal <strong><a href="https://kitafinder.muenchen.de/elternportal/de/" target="_blank">kita finder+</a></strong>.</p>
+          <p>The main matching window for children starting in September runs from <strong>January to March</strong> of the start year (i.e. early 2027). You can select up to high-priority Kitas in your ranking.</p>
+        </div>
+
+        <div class="help-card">
+          <h3>2. Quality vs Proximity</h3>
+          <p>For young children (age 3), a daily commute under 15 min walking or 5-7 min biking drastically improves daily routine and sibling logistics.</p>
+          <p>Look out for <strong>"Tag der offenen Tür" (Open Days)</strong> in autumn 2026 / winter 2027 to assess staff stability, bilingual programs, food quality, and outdoor garden areas.</p>
+        </div>
+
+        <div class="help-card">
+          <h3>3. Fees in Munich</h3>
+          <p>Kindergarten (Ü3) in Städtisch and Münchner Förderformel facilities has traditionally been tuition-free (thanks to Bavarian subsidies), with parents only paying for warm lunch (~€105-120/month).</p>
+          <p>Even with Bavarian subsidy adjustments scheduled around 2027, municipal and church Kitas remain the most cost-effective options.</p>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const INITIAL_KITAS = [
+      {
+        id: "kita-1",
+        name: "Haus für Kinder Therese-Giehse-Allee",
+        address: "Therese-Giehse-Allee 54-54a, 81739 München",
+        type: "Städtisch",
+        typeBadge: "badge-staedtisch",
+        ageRange: "3 years to end of Elementary School (approx. 10 yrs)",
+        ageBadgeText: "Kindergarten (3-6) + Hort (6-10)",
+        distMeters: 250,
+        walkMin: 3,
+        bikeMin: 1,
+        carMin: 1,
+        phone: "089 6701040 (Bezirksleitung)",
+        email: "kita.theresegiehse54@muenchen.de",
+        website: "https://stadt.muenchen.de/service/info/theresegiehseallee-5454a/1052916/",
+        hours: "Mo-Do 07:30–17:30, Fr 07:30–17:00",
+        totalMonthly: "~105 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Warm lunch (21 days)", value: "~105 € / month" },
+          { label: "Play/material fee", value: "0 €" }
+        ],
+        extraFees: "No admission fee. Städtische Gebührensatzung.",
+        quality: "Super close on the same street! Municipal integration facility, certified educators, large green garden, barrier-free.",
+        status: "Not Contacted",
+        rating: 5,
+        notes: "Top priority due to walking distance on the very same street."
+      },
+      {
+        id: "kita-2",
+        name: "Kindertageszentrum (KiTZ) Neuperlach",
+        address: "Helmut-Käutner-Straße 14-18, 81739 München",
+        type: "Kirchlich",
+        typeBadge: "badge-kirchlich",
+        ageRange: "0 to 6 years (until school entry)",
+        ageBadgeText: "Krippe (0-3) + Kindergarten (3-6)",
+        distMeters: 450,
+        walkMin: 6,
+        bikeMin: 2,
+        carMin: 2,
+        phone: "+49 89 4445 1277 10",
+        email: "kitz-neuperlach@dwro.de",
+        website: "https://dwro.de/standorte/einrichtung/kindertageszentrum-neuperlach/",
+        hours: "Mo-Fr 07:30–17:00",
+        totalMonthly: "~110 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Catering / Lunch", value: "~110 € / month" },
+          { label: "Toy fee", value: "Included" }
+        ],
+        extraFees: "Diakonie Jugendhilfe Oberbayern (DWRO) non-profit partner.",
+        quality: "97 places, multidisciplinary team, strong focus on individual development and nature projects with spacious garden.",
+        status: "Not Contacted",
+        rating: 5,
+        notes: "Very close, high educational standard."
+      },
+      {
+        id: "kita-3",
+        name: "Denk mit! Kita Neuperlach-Süd",
+        address: "Carl-Wery-Straße 54a, 81739 München",
+        type: "Privat / Förderformel",
+        typeBadge: "badge-privat",
+        ageRange: "0 to 6 years (until school entry)",
+        ageBadgeText: "Krippe (0-3) + Kindergarten (3-6)",
+        distMeters: 550,
+        walkMin: 7,
+        bikeMin: 2,
+        carMin: 2,
+        phone: "089 512668675",
+        email: "info@denk-mit.de",
+        website: "https://www.denk-mit.de/de/kitas/denk-mit-kita-muenchen-neuperlach-sued",
+        hours: "Mo-Fr 07:00–17:00",
+        totalMonthly: "~240 € – 355 € / month",
+        feeDetails: [
+          { label: "Tuition (4-5h booking)", value: "ca. 84 € / mo" },
+          { label: "Tuition (7-8h booking)", value: "ca. 150 € / mo" },
+          { label: "Tuition (9-10h booking)", value: "ca. 195 € / mo" },
+          { label: "Vollverpflegung (Meals)", value: "150 € / month" },
+          { label: "Toy/material fee", value: "5 € – 10 € / mo" }
+        ],
+        extraFees: "One-time enrollment fee ~250 €. Subsidized rate after €100 Bavarian subsidy.",
+        quality: "Brand-new building (2021), fresh on-site chef cooking daily, long opening hours (from 07:00), forest days near Perlacher Forst.",
+        status: "Not Contacted",
+        rating: 4,
+        notes: "Modern infrastructure, very close to Neuperlach Süd station."
+      },
+      {
+        id: "kita-4",
+        name: "Kath. Kindergarten St. Maximilian Kolbe",
+        address: "Maximilian-Kolbe-Allee 20, 81739 München",
+        type: "Kirchlich",
+        typeBadge: "badge-kirchlich",
+        ageRange: "3 to 6 years (until school entry)",
+        ageBadgeText: "Pure Kindergarten (3-6 yrs)",
+        distMeters: 650,
+        walkMin: 8,
+        bikeMin: 3,
+        carMin: 3,
+        phone: "089 6731552",
+        email: "st-maximilian-kolbe.muenchen@kita.erzbistum-muenchen.de",
+        website: "https://www.erzbistum-muenchen.de/Pfarrei/Christus-Erloeser-Muenchen/cont/80377",
+        hours: "Mo-Fr 07:30–16:30",
+        totalMonthly: "~105 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Warm lunch", value: "~100 € – 105 € / mo" },
+          { label: "Activity fee", value: "ca. 5 € / month" }
+        ],
+        extraFees: "KiTa-Verbund Perlach (Erzbistum München). No commercial surcharge.",
+        quality: "2 integration groups + 1 regular group. Strong community spirit, values-based pedagogy, experienced long-standing educators.",
+        status: "Not Contacted",
+        rating: 4,
+        notes: "Established neighborhood kindergarten, friendly community."
+      },
+      {
+        id: "kita-5",
+        name: "AWO Kindergarten 'SieKids – Kleine Forscher'",
+        address: "Otto-Hahn-Ring 25, 81739 München",
+        type: "Freier Träger / AWO",
+        typeBadge: "badge-frei",
+        ageRange: "3 to 6 years (until school entry)",
+        ageBadgeText: "Pure Kindergarten (3-6 yrs)",
+        distMeters: 1100,
+        walkMin: 14,
+        bikeMin: 4,
+        carMin: 3,
+        phone: "089 63640700",
+        email: "kiga-otto-hahn-ring@awo-muenchen.de",
+        website: "https://www.awo-muenchen.de/kinder/kindertagesbetreuung/kindergaerten-3-6-jahre/awo-kindergarten",
+        hours: "Mo-Do 07:30–17:30, Fr 07:30–17:00",
+        totalMonthly: "~115 € – 125 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Bio/warm lunch", value: "~110 € – 120 € / mo" },
+          { label: "Bilingual/Project fee", value: "~5 € / month" }
+        ],
+        extraFees: "AWO München-Stadt gemeinnützig. Co-op with Siemens research campus.",
+        quality: "⭐ Exceptional pedagogy: Bilingual German/English immersion, science discovery center ('Haus der kleinen Forscher'), 75 places across 3 groups.",
+        status: "Not Contacted",
+        rating: 5,
+        notes: "High educational quality, bilingual program!"
+      },
+      {
+        id: "kita-6",
+        name: "Haus für Kinder Quiddestraße 1 (Neubau)",
+        address: "Quiddestraße 1, 81735 München",
+        type: "Städtisch",
+        typeBadge: "badge-staedtisch",
+        ageRange: "0 years to end of Elementary School (approx. 10 yrs)",
+        ageBadgeText: "Krippe + Kindergarten + Hort (0-10 yrs)",
+        distMeters: 1200,
+        walkMin: 15,
+        bikeMin: 5,
+        carMin: 4,
+        phone: "089 233-0 (Zentral)",
+        email: "kita.quiddestr1@muenchen.de",
+        website: "https://multimedia.muenchen.de/das-haus-fuer-kinder-in-der-quiddestrasse",
+        hours: "Mo-Fr 07:30–17:00",
+        totalMonthly: "~105 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Warm lunch (21 days)", value: "~105 € / month" },
+          { label: "Material fee", value: "0 €" }
+        ],
+        extraFees: "Municipal fee ordinance (Stadt München).",
+        quality: "Brand new timber building (opened 2026), 136 spots, cutting-edge educational spaces for movement/creative arts, huge modern garden.",
+        status: "Not Contacted",
+        rating: 4,
+        notes: "Brand new facilities, highly recommended."
+      },
+      {
+        id: "kita-7",
+        name: "AWO Kindergarten Thomas-Dehler-Straße",
+        address: "Thomas-Dehler-Straße 3, 81737 München",
+        type: "Freier Träger / AWO",
+        typeBadge: "badge-frei",
+        ageRange: "3 to 6 years (until school entry)",
+        ageBadgeText: "Pure Kindergarten (3-6 yrs)",
+        distMeters: 1500,
+        walkMin: 19,
+        bikeMin: 6,
+        carMin: 4,
+        phone: "089 6706050",
+        email: "kiga-thomas-dehler@awo-muenchen.de",
+        website: "https://www.awo-muenchen.de/kinder/awo-kindergaerten-in-ihrer-naehe/awo-kindergarten-thomas-dehler-strasse-drv/ueber-uns/",
+        hours: "Mo-Do 07:00–17:00, Fr 07:00–16:00",
+        totalMonthly: "~110 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Warm lunch", value: "~105 € / month" },
+          { label: "Play/material fee", value: "~5 € / month" }
+        ],
+        extraFees: "AWO non-profit, cooperation with Deutsche Rentenversicherung.",
+        quality: "Convenient location near Neuperlach Zentrum / PEP, strong intercultural focus, democratic participation and language promotion.",
+        status: "Not Contacted",
+        rating: 3,
+        notes: "Good backup near Neuperlach Zentrum."
+      },
+      {
+        id: "kita-8",
+        name: "Städtisches Haus für Kinder Alfred-Döblin-Str.",
+        address: "Alfred-Döblin-Straße 22, 81737 München",
+        type: "Städtisch",
+        typeBadge: "badge-staedtisch",
+        ageRange: "3 years to end of Elementary School (approx. 10 yrs)",
+        ageBadgeText: "Kindergarten + Hort (3-10 yrs)",
+        distMeters: 1600,
+        walkMin: 20,
+        bikeMin: 6,
+        carMin: 5,
+        phone: "089 67942262",
+        email: "kita.alfreddoeblin22@muenchen.de",
+        website: "https://stadt.muenchen.de/",
+        hours: "Mo-Fr 07:30–17:00",
+        totalMonthly: "~105 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Warm lunch (21 days)", value: "~105 € / month" },
+          { label: "Material fee", value: "0 €" }
+        ],
+        extraFees: "Municipal fee ordinance (Stadt München).",
+        quality: "Established team, peaceful green setting with extensive outdoor play space, balanced rhythm of play and learning.",
+        status: "Not Contacted",
+        rating: 3,
+        notes: "Solid municipal Kita slightly further north."
+      },
+      {
+        id: "kita-9",
+        name: "Städtische Kindertagesstätte Rennertstraße",
+        address: "Rennertstraße 6, 81739 München",
+        type: "Städtisch",
+        typeBadge: "badge-staedtisch",
+        ageRange: "3 to 6 years (until school entry)",
+        ageBadgeText: "Pure Kindergarten (3-6 yrs)",
+        distMeters: 750,
+        walkMin: 9,
+        bikeMin: 3,
+        carMin: 3,
+        phone: "089 6371609",
+        email: "kita.rennertstr6@muenchen.de",
+        website: "https://stadt.muenchen.de/service/info/rennertstr-6/1052614/",
+        hours: "Mo-Do 07:30–17:00, Fr 07:30–16:00",
+        totalMonthly: "~58 € – 105 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Warm lunch (Bio-Anteil)", value: "~58 € – 105 € / mo" },
+          { label: "Material fee", value: "0 €" }
+        ],
+        extraFees: "Landeshauptstadt München (Städt. Satzung). 65 places across 3 groups (incl. integration).",
+        quality: "⭐ Certified 'Haus der kleinen Forscher' (hands-on science & discovery), focused on physical movement, language development, and organic food program (EU fruit initiative).",
+        status: "Not Contacted",
+        rating: 5,
+        notes: "Excellent option! Very close (9 min walk), municipal prices, and certified 'Haus der kleinen Forscher'."
+      },
+      {
+        id: "kita-10",
+        name: "Städtisches Haus für Kinder Strehleranger",
+        address: "Strehleranger 16, 81735 München",
+        type: "Städtisch",
+        typeBadge: "badge-staedtisch",
+        ageRange: "11 months to 6 years (Krippe + Kindergarten)",
+        ageBadgeText: "Krippe + Kindergarten (0-6 yrs)",
+        distMeters: 1700,
+        walkMin: 21,
+        bikeMin: 6,
+        carMin: 5,
+        phone: "089 233-67070",
+        email: "kita.strehleranger16@muenchen.de",
+        website: "https://stadt.muenchen.de/service/info/haus-fur-kinder-strehleranger-16/1052653/",
+        hours: "Mo-Do 07:00–17:00, Fr 07:00–16:00",
+        totalMonthly: "~58 € – 105 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Warm lunch (Bio-Anteil)", value: "~58 € – 105 € / mo" },
+          { label: "Material fee", value: "0 €" }
+        ],
+        extraFees: "Municipal fee ordinance (Stadt München). 90 Kindergarten places.",
+        quality: "Generous opening hours starting at 07:00, high inclusive/integration standard, focus on individual development and movement.",
+        status: "Not Contacted",
+        rating: 4,
+        notes: "Located near Strehleranger green park area. Municipal fees with 90 Ü3 places."
+      },
+      {
+        id: "kita-11",
+        name: "Kath. Kindertagesstätte St. Jakobus (KiTa-Verbund)",
+        address: "Quiddestraße 37, 81735 München",
+        type: "Kirchlich",
+        typeBadge: "badge-kirchlich",
+        ageRange: "1 to 6 years (Krippe + Kindergarten)",
+        ageBadgeText: "Krippe + Kindergarten (1-6 yrs)",
+        distMeters: 1500,
+        walkMin: 18,
+        bikeMin: 5,
+        carMin: 5,
+        phone: "089 63899520",
+        email: "st-jakobus.muenchen@kita.ebmuc.de",
+        website: "https://www2.erzbistum-muenchen.de/pfarrei/christus-erloeser-muenchen/kitaverbund-perlach/st-jakobus/106806",
+        hours: "Mo-Do 07:30–16:30, Fr 07:30–15:30",
+        totalMonthly: "~105 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Fresh warm lunch", value: "~105 € / month" },
+          { label: "Material fee", value: "0 €" }
+        ],
+        extraFees: "Member in Münchner Kitaförderung. No church tax required from parents.",
+        quality: "⭐ Modern building with functional rooms (research lab/Forscherlabor, creative atelier, music room, language room, gym), large garden with water playground, fresh in-house cooking kitchen (Frischküche). Close to Ostpark.",
+        status: "Not Contacted",
+        rating: 5,
+        notes: "KiTa-Verbund Perlach flagship: 100 Ü3 places, dedicated science lab and atelier, in-house freshly cooked food!"
+      },
+      {
+        id: "kita-12",
+        name: "Kath. Kindergarten St. Philipp Neri (KiTa-Verbund)",
+        address: "Kafkastraße 15, 81737 München",
+        type: "Kirchlich",
+        typeBadge: "badge-kirchlich",
+        ageRange: "3 to 6 years (until school entry)",
+        ageBadgeText: "Pure Kindergarten (3-6 yrs)",
+        distMeters: 1300,
+        walkMin: 16,
+        bikeMin: 5,
+        carMin: 4,
+        phone: "089 402879330",
+        email: "st-philipp-neri.muenchen@kita.ebmuc.de",
+        website: "https://www2.erzbistum-muenchen.de/pfarrei/christus-erloeser-muenchen/kitaverbund-perlach/st-philipp-neri/106808",
+        hours: "Mo-Do 07:30–16:00, Fr 07:30–14:00",
+        totalMonthly: "~105 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Warm lunch", value: "~105 € / month" },
+          { label: "Material fee", value: "0 €" }
+        ],
+        extraFees: "Münchner Kitaförderung. No church tax required from parents.",
+        quality: "4-group kindergarten (100 places), strong intercultural pedagogy welcoming all religions and origins, established team.",
+        status: "Not Contacted",
+        rating: 4,
+        notes: "KiTa-Verbund Perlach, located next to elementary school in residential area."
+      },
+      {
+        id: "kita-13",
+        name: "Kath. Kindergarten Verklärung Christi (KiTa-Verbund)",
+        address: "Adam-Berg-Straße 42, 81735 München",
+        type: "Kirchlich",
+        typeBadge: "badge-kirchlich",
+        ageRange: "3 to 6 years (until school entry)",
+        ageBadgeText: "Pure Kindergarten (3-6 yrs)",
+        distMeters: 1800,
+        walkMin: 22,
+        bikeMin: 6,
+        carMin: 5,
+        phone: "089 6891444",
+        email: "verklaerung-christi.muenchen@kita.ebmuc.de",
+        website: "https://www2.erzbistum-muenchen.de/pfarrei/christus-erloeser-muenchen/kitaverbund-perlach/verklaerung-christi/106809",
+        hours: "Mo-Fr 07:30–16:30",
+        totalMonthly: "~105 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Warm lunch", value: "~105 € / month" },
+          { label: "Material fee", value: "0 €" }
+        ],
+        extraFees: "Münchner Kitaförderung. No church tax required from parents.",
+        quality: "3 groups (75 places), open to all faiths, structured open day in October & intro afternoons in February with family profile.",
+        status: "Not Contacted",
+        rating: 4,
+        notes: "KiTa-Verbund Perlach (Ramersdorf/Perlach border)."
+      },
+      {
+        id: "kita-14",
+        name: "Kath. Kindergarten St. Bruder Klaus (KiTa-Verbund)",
+        address: "Putzbrunner Straße 274, 81739 München",
+        type: "Kirchlich",
+        typeBadge: "badge-kirchlich",
+        ageRange: "3 to 6 years (until school entry)",
+        ageBadgeText: "Pure Kindergarten (3-6 yrs)",
+        distMeters: 2200,
+        walkMin: 28,
+        bikeMin: 8,
+        carMin: 5,
+        phone: "089 60606622",
+        email: "st-bruder-klaus.muenchen@kita.ebmuc.de",
+        website: "https://www2.erzbistum-muenchen.de/pfarrei/christus-erloeser-muenchen/kitaverbund-perlach/st-bruder-klaus/106804",
+        hours: "Mo-Do 07:30–16:00, Fr 07:30–15:00",
+        totalMonthly: "~105 € / month",
+        feeDetails: [
+          { label: "Tuition (Ü3)", value: "0 € (Subsidized)" },
+          { label: "Warm lunch", value: "~105 € / month" },
+          { label: "Material fee", value: "0 €" }
+        ],
+        extraFees: "Münchner Kitaförderung. No church tax required from parents.",
+        quality: "Located near Truderinger Forst forest with forest excursions, 75 places, dedicated pre-school room, strong parent partnership.",
+        status: "Not Contacted",
+        rating: 4,
+        notes: "Waldperlach location, great access to forest and nature."
+      }
+    ];
+
+    const STORAGE_KEY = "kita_tracker_data_v5";
+
+    function loadKitas() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          console.error("Error reading localStorage", e);
+        }
+      }
+      return INITIAL_KITAS;
+    }
+
+    let kitas = loadKitas();
+    let db = null;
+    let auth = null;
+    let currentUser = null;
+    let firestoreUnsubscribe = null;
+
+    // --- Firebase Sync Integration ---
+    const FIREBASE_CONFIG_KEY = "kita_tracker_firebase_config";
+
+    function getSavedFirebaseConfig() {
+      const c = localStorage.getItem(FIREBASE_CONFIG_KEY);
+      return c ? JSON.parse(c) : null;
+    }
+
+    function initFirebaseIfAvailable() {
+      const config = getSavedFirebaseConfig();
+      if (!config || !window.firebase) {
+        updateSyncStatus('offline', 'Local Mode (No Cloud Configured)');
+        renderAuthUI(null);
+        return;
+      }
+
+      try {
+        if (!firebase.apps.length) {
+          firebase.initializeApp(config);
+        }
+        db = firebase.firestore();
+        auth = firebase.auth();
+
+        auth.onAuthStateChanged(user => {
+          currentUser = user;
+          renderAuthUI(user);
+          if (user) {
+            updateSyncStatus('online', `Synced as ${user.email || 'Authorized Parent'}`);
+            listenToCloudKitas();
+          } else {
+            updateSyncStatus('syncing', 'Please sign in to sync with your partner');
+            if (firestoreUnsubscribe) firestoreUnsubscribe();
+          }
+        });
+      } catch (err) {
+        console.error("Firebase init error", err);
+        updateSyncStatus('offline', 'Firebase config error');
+      }
+    }
+
+    function updateSyncStatus(status, text) {
+      const dot = document.getElementById('syncDot');
+      const label = document.getElementById('syncText');
+      if (!dot || !label) return;
+      dot.className = `status-dot ${status}`;
+      label.textContent = text;
+    }
+
+    function renderAuthUI(user) {
+      const container = document.getElementById('authActions');
+      if (!container) return;
+
+      const hasConfig = !!getSavedFirebaseConfig();
+      if (!hasConfig) {
+        container.innerHTML = `<button class="btn btn-sm" onclick="promptFirebaseConfig()">⚙️ Connect Firebase (Free)</button>`;
+        return;
+      }
+
+      if (user) {
+        container.innerHTML = `
+          <span style="font-size:0.8rem; color:#475569;">👤 ${escapeHtml(user.email || 'Signed in')}</span>
+          <button class="btn btn-sm" onclick="signOutUser()">Log Out</button>
+          <button class="btn btn-sm" onclick="promptFirebaseConfig()" title="Change Firebase config">⚙️</button>
+        `;
+      } else {
+        container.innerHTML = `
+          <input type="email" id="loginEmail" placeholder="email@example.com" style="width:160px;">
+          <input type="password" id="loginPass" placeholder="password" style="width:100px;">
+          <button class="btn btn-sm btn-primary" onclick="signInWithEmail()">Sign In</button>
+          <button class="btn btn-sm" onclick="signUpWithEmail()">Create Account</button>
+          <button class="btn btn-sm" onclick="promptFirebaseConfig()" title="Config">⚙️</button>
+        `;
+      }
+    }
+
+    async function signInWithEmail() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPass').value;
+      if (!email || !pass) return alert("Please enter both email and password.");
+      try {
+        await auth.signInWithEmailAndPassword(email, pass);
+      } catch (e) {
+        alert("Sign in failed: " + e.message);
+      }
+    }
+
+    async function signUpWithEmail() {
+      const email = document.getElementById('loginEmail').value.trim();
+      const pass = document.getElementById('loginPass').value;
+      if (!email || !pass) return alert("Please enter both email and password.");
+      try {
+        await auth.createUserWithEmailAndPassword(email, pass);
+        alert("Account created and logged in!");
+      } catch (e) {
+        alert("Sign up error: " + e.message);
+      }
+    }
+
+    async function signOutUser() {
+      if (auth) await auth.signOut();
+    }
+
+    function promptFirebaseConfig() {
+      const current = localStorage.getItem(FIREBASE_CONFIG_KEY) || "";
+      const input = prompt(
+        "Paste your Firebase web config JSON (from Firebase Console > Project Settings > General > Your apps):\n\nFormat: {\"apiKey\": \"...\", \"projectId\": \"...\", ...}",
+        current
+      );
+      if (input !== null) {
+        try {
+          const parsed = JSON.parse(input.trim());
+          if (parsed.apiKey && parsed.projectId) {
+            localStorage.setItem(FIREBASE_CONFIG_KEY, JSON.stringify(parsed));
+            alert("Firebase configured! Reloading page...");
+            window.location.reload();
+          } else {
+            alert("Invalid configuration. Must contain at least apiKey and projectId.");
+          }
+        } catch (e) {
+          alert("Could not parse JSON. Please check the format.");
+        }
+      }
+    }
+
+    function listenToCloudKitas() {
+      if (!db || !currentUser) return;
+      updateSyncStatus('syncing', 'Connecting live sync...');
+
+      // All family data stored in doc: /families/shared/kitas/all
+      firestoreUnsubscribe = db.collection('families').doc('neuperlach_tracker').onSnapshot(doc => {
+        if (doc.exists) {
+          const data = doc.data();
+          if (Array.isArray(data.kitas) && data.kitas.length > 0) {
+            kitas = data.kitas;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(kitas));
+            updateStats();
+            renderTable();
+            updateSyncStatus('online', `🟢 Realtime Sync Active (${currentUser.email || 'Logged in'})`);
+          }
+        } else {
+          // Document doesn't exist yet, push initial local data to cloud
+          saveKitasToCloud();
+        }
+      }, err => {
+        console.error("Firestore listener error:", err);
+        updateSyncStatus('offline', 'Sync error: check Firestore rules');
+      });
+    }
+
+    async function saveKitasToCloud() {
+      if (!db || !currentUser) return;
+      try {
+        await db.collection('families').doc('neuperlach_tracker').set({
+          kitas: kitas,
+          updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+          updatedBy: currentUser.email || currentUser.uid
+        });
+      } catch (e) {
+        console.error("Failed saving to cloud:", e);
+      }
+    }
+
+    function saveKitas() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(kitas));
+      updateStats();
+      if (db && currentUser) {
+        saveKitasToCloud();
+      }
+    }
+
+    function updateStats() {
+      document.getElementById('stat-total').textContent = kitas.length;
+      document.getElementById('stat-contacted').textContent = kitas.filter(k => k.status.includes('Contacted')).length;
+      document.getElementById('stat-applied').textContent = kitas.filter(k => k.status.includes('Applied')).length;
+      document.getElementById('stat-offered').textContent = kitas.filter(k => k.status.includes('Offered')).length;
+    }
+
+    function renderFeeCard(k) {
+      if (k.feeDetails && k.feeDetails.length > 0) {
+        return `
+          <div class="fee-card">
+            <div class="fee-total">
+              💰 ${escapeHtml(k.totalMonthly)}
+              <span class="pill-approx">Total Est.</span>
+            </div>
+            <ul class="fee-list">
+              ${k.feeDetails.map(f => `
+                <li>
+                  <span>${escapeHtml(f.label)}:</span>
+                  <span class="val">${escapeHtml(f.value)}</span>
+                </li>
+              `).join('')}
+            </ul>
+            ${k.extraFees ? `<div class="fee-extra">ℹ️ ${escapeHtml(k.extraFees)}</div>` : ''}
+          </div>
+          <div class="quality-notes">
+            <span>✨</span>
+            <div>${escapeHtml(k.quality || k.features || '')}</div>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="fee-card">
+          <div class="fee-total">💰 ${escapeHtml(k.pricing || 'Subsidized')}</div>
+        </div>
+        <div class="quality-notes">
+          <span>✨</span>
+          <div>${escapeHtml(k.features || '')}</div>
+        </div>
+      `;
+    }
+
+    function renderTable() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const statusFilter = document.getElementById('statusFilter').value;
+      const typeFilter = document.getElementById('typeFilter').value;
+      const sortFilter = document.getElementById('sortFilter').value;
+
+      let filtered = kitas.filter(k => {
+        const matchesSearch = k.name.toLowerCase().includes(search) || 
+                              k.address.toLowerCase().includes(search) || 
+                              k.type.toLowerCase().includes(search) ||
+                              (k.notes && k.notes.toLowerCase().includes(search));
+        const matchesStatus = (statusFilter === 'ALL') || (k.status === statusFilter);
+        const matchesType = (typeFilter === 'ALL') || (k.type === typeFilter);
+        return matchesSearch && matchesStatus && matchesType;
+      });
+
+      filtered.sort((a, b) => {
+        if (sortFilter === 'distance') return a.distMeters - b.distMeters;
+        if (sortFilter === 'rating') return (b.rating || 0) - (a.rating || 0);
+        if (sortFilter === 'name') return a.name.localeCompare(b.name);
+        return 0;
+      });
+
+      const tbody = document.getElementById('kitaTableBody');
+      tbody.innerHTML = '';
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding: 32px; color: #94a3b8;">No Kitas matched your filters.</td></tr>`;
+        return;
+      }
+
+      filtered.forEach(k => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td>
+            <div class="kita-name">${escapeHtml(k.name)}</div>
+            <div class="kita-sub">📍 ${escapeHtml(k.address)}</div>
+            <div style="display: flex; gap: 6px; align-items: center; flex-wrap: wrap;">
+              <span class="badge ${k.typeBadge || 'badge-staedtisch'}">${escapeHtml(k.type)}</span>
+              <span class="age-badge">👶 ${escapeHtml(k.ageBadgeText || k.ageRange || '3-6 yrs')}</span>
+            </div>
+          </td>
+          <td>
+            <div class="commute-pill">🚶 ${k.walkMin} min (${k.distMeters} m)</div>
+            <div class="commute-pill">🚲 ${k.bikeMin} min</div>
+            <div class="commute-pill">🚗 ${k.carMin} min</div>
+          </td>
+          <td>
+            ${k.phone ? `<div class="contact-item">📞 <a href="tel:${escapeHtml(k.phone)}">${escapeHtml(k.phone)}</a></div>` : ''}
+            ${k.email ? `<div class="contact-item">✉️ <a href="mailto:${escapeHtml(k.email)}">${escapeHtml(k.email)}</a></div>` : ''}
+            ${k.website ? `<div class="contact-item">🔗 <a href="${escapeHtml(k.website)}" target="_blank" rel="noopener">Website</a></div>` : ''}
+            ${k.hours ? `<div style="font-size:0.75rem; color:#64748b; margin-top:4px;">🕒 ${escapeHtml(k.hours)}</div>` : ''}
+          </td>
+          <td style="min-width: 260px;">
+            ${renderFeeCard(k)}
+          </td>
+          <td>
+            <div class="rating-stars" onclick="cycleRating('${k.id}')">
+              ${[1, 2, 3, 4, 5].map(star => `<span class="${star <= (k.rating || 0) ? 'filled' : ''}">★</span>`).join('')}
+            </div>
+          </td>
+          <td>
+            <select class="status-select" onchange="updateKitaStatus('${k.id}', this.value)">
+              <option value="Not Contacted" ${k.status === 'Not Contacted' ? 'selected' : ''}>⚪ Not Contacted</option>
+              <option value="Contacted / Info Day" ${k.status === 'Contacted / Info Day' ? 'selected' : ''}>🟡 Contacted / Info Day</option>
+              <option value="Applied (Kita-Finder)" ${k.status === 'Applied (Kita-Finder)' ? 'selected' : ''}>🔵 Applied (Kita-Finder)</option>
+              <option value="Waitlist" ${k.status === 'Waitlist' ? 'selected' : ''}>🟠 Waitlist</option>
+              <option value="Offered Place" ${k.status === 'Offered Place' ? 'selected' : ''}>🟢 Offered Place 🎉</option>
+              <option value="Declined / Full" ${k.status === 'Declined / Full' ? 'selected' : ''}>🔴 Declined / Full</option>
+            </select>
+          </td>
+          <td>
+            <textarea class="notes-box" placeholder="Communication history, call notes, impression..." onchange="updateKitaNotes('${k.id}', this.value)">${escapeHtml(k.notes || '')}</textarea>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+    }
+
+    function updateKitaStatus(id, newStatus) {
+      const item = kitas.find(k => k.id === id);
+      if (item) {
+        item.status = newStatus;
+        saveKitas();
+      }
+    }
+
+    function updateKitaNotes(id, newNotes) {
+      const item = kitas.find(k => k.id === id);
+      if (item) {
+        item.notes = newNotes;
+        saveKitas();
+      }
+    }
+
+    function cycleRating(id) {
+      const item = kitas.find(k => k.id === id);
+      if (item) {
+        item.rating = ((item.rating || 0) % 5) + 1;
+        saveKitas();
+        renderTable();
+      }
+    }
+
+    function addNewKita() {
+      const name = prompt("Enter Kita Name:");
+      if (!name) return;
+      const address = prompt("Enter Address (e.g. Otto-Hahn-Ring 12):") || "";
+      const newKita = {
+        id: "kita-custom-" + Date.now(),
+        name: name,
+        address: address,
+        type: "Freier Träger / AWO",
+        typeBadge: "badge-frei",
+        distMeters: 1000,
+        walkMin: 12,
+        bikeMin: 4,
+        carMin: 3,
+        phone: "",
+        email: "",
+        website: "",
+        hours: "Mo-Fr 07:30–17:00",
+        pricing: "Städtisch/Gefördert",
+        features: "Manually added",
+        status: "Not Contacted",
+        rating: 3,
+        notes: ""
+      };
+      kitas.push(newKita);
+      saveKitas();
+      renderTable();
+    }
+
+    function exportData() {
+      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(kitas, null, 2));
+      const downloadAnchor = document.createElement('a');
+      downloadAnchor.setAttribute("href", dataStr);
+      downloadAnchor.setAttribute("download", `kitas_neuperlach_tracker_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(downloadAnchor);
+      downloadAnchor.click();
+      downloadAnchor.remove();
+    }
+
+    function importData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (Array.isArray(parsed)) {
+            kitas = parsed;
+            saveKitas();
+            renderTable();
+            alert("Data imported successfully!");
+          }
+        } catch (err) {
+          alert("Invalid JSON file.");
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', renderTable);
+    document.getElementById('statusFilter').addEventListener('change', renderTable);
+    document.getElementById('typeFilter').addEventListener('change', renderTable);
+    document.getElementById('sortFilter').addEventListener('change', renderTable);
+
+    // Initial render
+    updateStats();
+    renderTable();
+    initFirebaseIfAvailable();
+  </script>
+</body>
+</html>
