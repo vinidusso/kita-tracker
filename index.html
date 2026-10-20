@@ -425,6 +425,216 @@
       text-decoration: underline;
     }
 
+    /* Agenda Timeline Styling */
+    .schedule-section {
+      margin-top: 32px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    }
+
+    .schedule-header {
+      margin-bottom: 24px;
+    }
+
+    .schedule-header h2 {
+      font-size: 1.3rem;
+      color: #1e293b;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .timeline-container {
+      position: relative;
+      margin-top: 20px;
+      padding-left: 20px;
+    }
+
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      bottom: 25px;
+      left: 35px;
+      width: 3px;
+      background: #e2e8f0;
+      border-radius: 2px;
+    }
+
+    .timeline-phase {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .timeline-phase:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-phase-marker {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .timeline-phase-dot {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3px solid #3b82f6;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.95rem;
+      z-index: 2;
+      flex-shrink: 0;
+    }
+
+    .timeline-phase.phase-now .timeline-phase-dot {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 4px rgba(245, 158, 11, 0.2);
+    }
+
+    .timeline-phase.phase-jan .timeline-phase-dot {
+      border-color: #10b981;
+      box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+    }
+
+    .timeline-phase.phase-feb .timeline-phase-dot {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+    }
+
+    .timeline-phase.phase-ongoing .timeline-phase-dot {
+      border-color: #8b5cf6;
+      box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.2);
+    }
+
+    .timeline-phase-title-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .timeline-phase-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .timeline-phase-subtitle {
+      font-size: 0.8rem;
+      color: #64748b;
+      font-weight: 500;
+    }
+
+    .timeline-cards-list {
+      margin-left: 46px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 14px;
+    }
+
+    .agenda-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+      transition: all 0.15s ease;
+    }
+
+    .agenda-card:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.06);
+      transform: translateY(-2px);
+    }
+
+    .agenda-card.confirmed {
+      border-left: 4px solid #16a34a;
+      background: #fdfefe;
+    }
+
+    .agenda-card.window {
+      border-left: 4px solid #0284c7;
+      background: #fdfefe;
+    }
+
+    .agenda-card.contact {
+      border-left: 4px solid #d97706;
+      background: #fdfefe;
+    }
+
+    .agenda-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .agenda-kita-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #0f172a;
+    }
+
+    .agenda-date-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: #1e293b;
+      background: #f8fafc;
+      padding: 4px 8px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+      width: fit-content;
+    }
+
+    .agenda-card.confirmed .agenda-date-row {
+      background: #ecfdf5;
+      border-color: #a7f3d0;
+      color: #065f46;
+    }
+
+    .agenda-card.window .agenda-date-row {
+      background: #f0f9ff;
+      border-color: #bae6fd;
+      color: #0369a1;
+    }
+
+    .agenda-card.contact .agenda-date-row {
+      background: #fffbeb;
+      border-color: #fde68a;
+      color: #92400e;
+    }
+
+    .agenda-details {
+      font-size: 0.8rem;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    .agenda-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: auto;
+      padding-top: 8px;
+      border-top: 1px dashed #e2e8f0;
+    }
+
     .help-section {
       margin-top: 32px;
       background: var(--card-bg);
@@ -659,6 +869,18 @@
         </tbody>
       </table>
     </div>
+
+    <section class="schedule-section">
+      <div class="schedule-header">
+        <h2>📅 Agenda Timeline: Open Days & Visiting Milestones</h2>
+        <p style="font-size: 0.88rem; color: #64748b; margin-top: 6px;">
+          Chronological guide to info sessions, open doors, and key Munich kindergarten registration checkpoints leading up to September 2027 entry.
+        </p>
+      </div>
+      <div class="timeline-container" id="timelineScheduleContainer">
+        <!-- Generated by JS -->
+      </div>
+    </section>
 
     <section class="help-section">
       <h2>💡 Practical Guide for Munich Kita Applications (Ü3 - Kindergarten)</h2>
@@ -1349,6 +1571,7 @@
             localStorage.setItem(STORAGE_KEY, JSON.stringify(kitas));
             updateStats();
             renderTable();
+            renderTimelineSchedule();
             updateSyncStatus('online', `🟢 Realtime Sync Active (${currentUser.email || 'Logged in'})`);
           }
         } else {
@@ -1624,6 +1847,119 @@
       reader.readAsText(file);
     }
 
+    function renderTimelineSchedule() {
+      const container = document.getElementById('timelineScheduleContainer');
+      if (!container) return;
+
+      // Group kitas into agenda milestones
+      // 1. Autumn 2026 (Oct/Nov/Dec)
+      // 2. Late January 2027 (Confirmed & Main AWO/DWRO Days)
+      // 3. Early February 2027 (Städtisch & Kennenlerntage Window)
+      // 4. Flexible / Individual Appointments
+      const phases = [
+        {
+          id: 'phase-now',
+          class: 'phase-now',
+          icon: '🍁',
+          title: 'Autumn 2026: Pre-Registration & Church Open Days',
+          subtitle: 'October – December 2026 • Announcement of official city dates & preliminary parish visiting',
+          items: kitas.filter(k => {
+            const d = (k.openDay?.date || '').toLowerCase();
+            const tag = (k.openDay?.tag || '').toLowerCase();
+            return d.includes('oct') || d.includes('autumn') || tag.includes('oct');
+          })
+        },
+        {
+          id: 'phase-jan',
+          class: 'phase-jan',
+          icon: '🎯',
+          title: 'Late January 2027: Peak Open Days Week',
+          subtitle: 'Last week of January 2027 • Confirmed dates for Diakonie, AWO, and private providers',
+          items: kitas.filter(k => {
+            const d = (k.openDay?.date || '').toLowerCase();
+            return d.includes('27. jan') || d.includes('29. jan') || d.includes('late jan') || (k.openDay?.tagClass === 'openday-tag-confirmed');
+          })
+        },
+        {
+          id: 'phase-feb',
+          class: 'phase-feb',
+          icon: '🏛️',
+          title: 'January / February 2027: Municipal Kitas & Kennenlerntage',
+          subtitle: 'Mid-January to mid-February 2027 • Städtische Häuser für Kinder & personalized visiting slots',
+          items: kitas.filter(k => {
+            const d = (k.openDay?.date || '').toLowerCase();
+            const isConfirmed = k.openDay?.tagClass === 'openday-tag-confirmed';
+            const isContact = k.openDay?.tagClass === 'openday-tag-contact';
+            const isJanConfirmed = d.includes('27. jan') || d.includes('29. jan');
+            return !isJanConfirmed && !isContact && (d.includes('feb') || d.includes('january') || d.includes('städtisch') || k.type === 'Städtisch');
+          })
+        },
+        {
+          id: 'phase-ongoing',
+          class: 'phase-ongoing',
+          icon: '📞',
+          title: 'Year-Round / By Appointment',
+          subtitle: 'Flexible booking • Individual family tours and private facilities',
+          items: kitas.filter(k => {
+            return k.openDay?.tagClass === 'openday-tag-contact' || (k.openDay?.date || '').toLowerCase().includes('individual');
+          })
+        }
+      ];
+
+      // De-duplicate items within each phase to ensure clean visual display
+      container.innerHTML = phases.map(phase => {
+        if (phase.items.length === 0) return '';
+
+        return `
+          <div class="timeline-phase ${phase.class}">
+            <div class="timeline-phase-marker">
+              <div class="timeline-phase-dot">${phase.icon}</div>
+              <div class="timeline-phase-title-wrap">
+                <span class="timeline-phase-title">${escapeHtml(phase.title)}</span>
+                <span class="timeline-phase-subtitle">${escapeHtml(phase.subtitle)}</span>
+              </div>
+            </div>
+            <div class="timeline-cards-list">
+              ${phase.items.map(k => {
+                const od = k.openDay || {};
+                let cardStyle = 'window';
+                let icon = '📅';
+
+                if (od.tagClass === 'openday-tag-confirmed') {
+                  cardStyle = 'confirmed';
+                  icon = '✅';
+                } else if (od.tagClass === 'openday-tag-contact') {
+                  cardStyle = 'contact';
+                  icon = '📞';
+                }
+
+                return `
+                  <div class="agenda-card ${cardStyle}">
+                    <div class="agenda-card-header">
+                      <span class="agenda-kita-title">${escapeHtml(k.name)}</span>
+                      <span class="badge ${k.typeBadge || 'badge-staedtisch'}">${escapeHtml(k.type)}</span>
+                    </div>
+                    <div class="agenda-date-row">
+                      <span>${icon}</span>
+                      <span>${escapeHtml(od.date || 'To be announced')}</span>
+                    </div>
+                    <div class="agenda-details">
+                      ${escapeHtml(od.details || '')}
+                    </div>
+                    <div class="agenda-card-footer">
+                      <span>📍 ${k.walkMin} min walk (${k.distMeters} m)</span>
+                      ${k.phone ? `<span>📞 <a href="tel:${escapeHtml(k.phone)}">${escapeHtml(k.phone)}</a></span>` : ''}
+                      ${k.website ? `<span>🔗 <a href="${escapeHtml(k.website)}" target="_blank" rel="noopener">Website</a></span>` : ''}
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
     document.getElementById('searchInput').addEventListener('input', renderTable);
     document.getElementById('statusFilter').addEventListener('change', renderTable);
     document.getElementById('typeFilter').addEventListener('change', renderTable);
@@ -1632,6 +1968,7 @@
     // Initial render
     updateStats();
     renderTable();
+    renderTimelineSchedule();
     initFirebaseIfAvailable();
   </script>
 </body>
