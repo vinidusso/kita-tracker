@@ -314,6 +314,45 @@
       gap: 5px;
     }
 
+    .openday-card {
+      margin-top: 8px;
+      font-size: 0.78rem;
+      border-radius: 6px;
+      padding: 7px 9px;
+      border: 1px solid #fed7aa;
+      background: #fffbeb;
+      color: #9a3412;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+
+    .openday-title {
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #c2410c;
+    }
+
+    .openday-details {
+      font-size: 0.75rem;
+      color: #7c2d12;
+    }
+
+    .openday-tag {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 1px 6px;
+      border-radius: 4px;
+      width: fit-content;
+    }
+
+    .openday-tag-confirmed { background: #dcfce7; color: #166534; }
+    .openday-tag-window { background: #e0f2fe; color: #0369a1; }
+    .openday-tag-contact { background: #fef3c7; color: #92400e; }
+
     .commute-pill {
       display: inline-flex;
       align-items: center;
@@ -671,6 +710,12 @@
           { label: "Play/material fee", value: "0 €" }
         ],
         extraFees: "No admission fee. Städtische Gebührensatzung.",
+        openDay: {
+          tag: "Expected Jan/Feb 2027",
+          tagClass: "openday-tag-window",
+          date: "Mid-Jan to early Feb 2027 (Annual Munich Window)",
+          details: "Municipal Kitas publish exact date on stadt.muenchen.de in Nov/Dec. Check site or call Bezirksleitung."
+        },
         quality: "Super close on the same street! Municipal integration facility, certified educators, large green garden, barrier-free.",
         status: "Not Contacted",
         rating: 5,
@@ -699,6 +744,12 @@
           { label: "Toy fee", value: "Included" }
         ],
         extraFees: "Diakonie Jugendhilfe Oberbayern (DWRO) non-profit partner.",
+        openDay: {
+          tag: "Wednesday, 27.01.2027 (17:00–19:00)",
+          tagClass: "openday-tag-confirmed",
+          date: "Wednesday, 27. Jan 2027 &bull; 17:00 – 19:00 Uhr",
+          details: "Annual Tag der offenen Tür for Krippe & Kindergarten. Direct meet & greet with educators and facility tour."
+        },
         quality: "97 places, multidisciplinary team, strong focus on individual development and nature projects with spacious garden.",
         status: "Not Contacted",
         rating: 5,
@@ -729,6 +780,12 @@
           { label: "Toy/material fee", value: "5 € – 10 € / mo" }
         ],
         extraFees: "One-time enrollment fee ~250 €. Subsidized rate after €100 Bavarian subsidy.",
+        openDay: {
+          tag: "Individual Tour on Request",
+          tagClass: "openday-tag-contact",
+          date: "Private Provider &bull; Individual appointments",
+          details: "Denk mit! offers scheduled guided tours year-round. Request via website form or phone."
+        },
         quality: "Brand-new building (2021), fresh on-site chef cooking daily, long opening hours (from 07:00), forest days near Perlacher Forst.",
         status: "Not Contacted",
         rating: 4,
@@ -757,6 +814,12 @@
           { label: "Activity fee", value: "ca. 5 € / month" }
         ],
         extraFees: "KiTa-Verbund Perlach (Erzbistum München). No commercial surcharge.",
+        openDay: {
+          tag: "Autumn 2026 / Jan 2027",
+          tagClass: "openday-tag-window",
+          date: "KiTa-Verbund Info Session &bull; Oct 2026 or Jan 2027",
+          details: "KiTa-Verbund Perlach holds orientation days in autumn/January. Check Pfarrbrief or call office in Nov."
+        },
         quality: "2 integration groups + 1 regular group. Strong community spirit, values-based pedagogy, experienced long-standing educators.",
         status: "Not Contacted",
         rating: 4,
@@ -785,6 +848,12 @@
           { label: "Bilingual/Project fee", value: "~5 € / month" }
         ],
         extraFees: "AWO München-Stadt gemeinnützig. Co-op with Siemens research campus.",
+        openDay: {
+          tag: "Friday, 29.01.2027 (16:00–18:00)",
+          tagClass: "openday-tag-confirmed",
+          date: "Friday, 29. Jan 2027 &bull; 16:00 – 18:00 Uhr",
+          details: "Confirmed annual Tag der offenen Tür (Krippe + Kindergarten). Excellent chance to see the bilingual setup & science lab."
+        },
         quality: "⭐ Exceptional pedagogy: Bilingual German/English immersion, science discovery center ('Haus der kleinen Forscher'), 75 places across 3 groups.",
         status: "Not Contacted",
         rating: 5,
@@ -813,6 +882,12 @@
           { label: "Material fee", value: "0 €" }
         ],
         extraFees: "Municipal fee ordinance (Stadt München).",
+        openDay: {
+          tag: "Jan/Feb 2027 (Städtisch Window)",
+          tagClass: "openday-tag-window",
+          date: "January / February 2027 &bull; Afternoon / Evening",
+          details: "Städtische Häuser für Kinder hold an Open Day in the main allocation window before February deadlines."
+        },
         quality: "Brand new timber building (opened 2026), 136 spots, cutting-edge educational spaces for movement/creative arts, huge modern garden.",
         status: "Not Contacted",
         rating: 4,
@@ -841,6 +916,12 @@
           { label: "Play/material fee", value: "~5 € / month" }
         ],
         extraFees: "AWO non-profit, cooperation with Deutsche Rentenversicherung.",
+        openDay: {
+          tag: "Late Jan 2027 (AWO Info Week)",
+          tagClass: "openday-tag-window",
+          date: "Late January 2027 (parallel to AWO network)",
+          details: "AWO Munich facilities coordinate their Tag der offenen Tür in the last week of January."
+        },
         quality: "Convenient location near Neuperlach Zentrum / PEP, strong intercultural focus, democratic participation and language promotion.",
         status: "Not Contacted",
         rating: 3,
@@ -869,6 +950,12 @@
           { label: "Material fee", value: "0 €" }
         ],
         extraFees: "Municipal fee ordinance (Stadt München).",
+        openDay: {
+          tag: "Jan/Feb 2027 (Städtisch Window)",
+          tagClass: "openday-tag-window",
+          date: "January / February 2027",
+          details: "Check municipal portal or call 089 67942262 in December to confirm."
+        },
         quality: "Established team, peaceful green setting with extensive outdoor play space, balanced rhythm of play and learning.",
         status: "Not Contacted",
         rating: 3,
@@ -897,6 +984,12 @@
           { label: "Material fee", value: "0 €" }
         ],
         extraFees: "Landeshauptstadt München (Städt. Satzung). 65 places across 3 groups (incl. integration).",
+        openDay: {
+          tag: "Jan/Feb 2027 &bull; Appointment on Request",
+          tagClass: "openday-tag-window",
+          date: "January 2027 (or phone appointment)",
+          details: "Individual guided tours available upon short request (call 089 6371609) in addition to central Info Day."
+        },
         quality: "⭐ Certified 'Haus der kleinen Forscher' (hands-on science & discovery), focused on physical movement, language development, and organic food program (EU fruit initiative).",
         status: "Not Contacted",
         rating: 5,
@@ -925,6 +1018,12 @@
           { label: "Material fee", value: "0 €" }
         ],
         extraFees: "Municipal fee ordinance (Stadt München). 90 Kindergarten places.",
+        openDay: {
+          tag: "Jan/Feb 2027 (Städtisch Window)",
+          tagClass: "openday-tag-window",
+          date: "January / February 2027",
+          details: "Annual open house for new families. Dates announced via muenchen.de service entry."
+        },
         quality: "Generous opening hours starting at 07:00, high inclusive/integration standard, focus on individual development and movement.",
         status: "Not Contacted",
         rating: 4,
@@ -953,6 +1052,12 @@
           { label: "Material fee", value: "0 €" }
         ],
         extraFees: "Member in Münchner Kitaförderung. No church tax required from parents.",
+        openDay: {
+          tag: "KiTa-Verbund Open Day (Oct & Feb)",
+          tagClass: "openday-tag-window",
+          date: "October (Tag d. offenen Tür) & Feb (Kennenlerntage)",
+          details: "KiTa-Verbund Perlach holds Autumn open days and personalized Kennenlerntage in February."
+        },
         quality: "⭐ Modern building with functional rooms (research lab/Forscherlabor, creative atelier, music room, language room, gym), large garden with water playground, fresh in-house cooking kitchen (Frischküche). Close to Ostpark.",
         status: "Not Contacted",
         rating: 5,
@@ -981,6 +1086,12 @@
           { label: "Material fee", value: "0 €" }
         ],
         extraFees: "Münchner Kitaförderung. No church tax required from parents.",
+        openDay: {
+          tag: "KiTa-Verbund Open Day (Oct & Feb)",
+          tagClass: "openday-tag-window",
+          date: "October / February Kennenlerntage",
+          details: "Pre-registration via kita finder+ requested before attending Kennenlerntage."
+        },
         quality: "4-group kindergarten (100 places), strong intercultural pedagogy welcoming all religions and origins, established team.",
         status: "Not Contacted",
         rating: 4,
@@ -1009,6 +1120,12 @@
           { label: "Material fee", value: "0 €" }
         ],
         extraFees: "Münchner Kitaförderung. No church tax required from parents.",
+        openDay: {
+          tag: "09. Oct & Feb Kennenlerntage",
+          tagClass: "openday-tag-confirmed",
+          date: "Tag der offenen Tür (Oct) & Kennenlerntage (mid-Feb)",
+          details: "Oct 9: Open house & Q&A. Feb 15/17/22: Dedicated afternoon slots for pre-registered families."
+        },
         quality: "3 groups (75 places), open to all faiths, structured open day in October & intro afternoons in February with family profile.",
         status: "Not Contacted",
         rating: 4,
@@ -1037,6 +1154,12 @@
           { label: "Material fee", value: "0 €" }
         ],
         extraFees: "Münchner Kitaförderung. No church tax required from parents.",
+        openDay: {
+          tag: "Autumn / Winter Schedule",
+          tagClass: "openday-tag-window",
+          date: "October / January Kennenlerntermin",
+          details: "Waldperlach facility. Contact management directly (089 60606622) for visiting afternoon."
+        },
         quality: "Located near Truderinger Forst forest with forest excursions, 75 places, dedicated pre-school room, strong parent partnership.",
         status: "Not Contacted",
         rating: 4,
@@ -1044,13 +1167,26 @@
       }
     ];
 
-    const STORAGE_KEY = "kita_tracker_data_v5";
+    const STORAGE_KEY = "kita_tracker_data_v6";
 
     function loadKitas() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
         try {
-          return JSON.parse(stored);
+          const parsed = JSON.parse(stored);
+          // Merge with INITIAL_KITAS to preserve updated static fields (openDay, fees, etc.) while keeping user status/notes/rating
+          return INITIAL_KITAS.map(initial => {
+            const match = parsed.find(k => k.id === initial.id);
+            if (match) {
+              return {
+                ...initial,
+                status: match.status !== undefined ? match.status : initial.status,
+                rating: match.rating !== undefined ? match.rating : initial.rating,
+                notes: match.notes !== undefined ? match.notes : initial.notes
+              };
+            }
+            return initial;
+          });
         } catch (e) {
           console.error("Error reading localStorage", e);
         }
@@ -1197,7 +1333,19 @@
         if (doc.exists) {
           const data = doc.data();
           if (Array.isArray(data.kitas) && data.kitas.length > 0) {
-            kitas = data.kitas;
+            // Merge cloud data with INITIAL_KITAS to ensure latest static data (openDay, fees) is preserved
+            kitas = INITIAL_KITAS.map(initial => {
+              const match = data.kitas.find(k => k.id === initial.id);
+              if (match) {
+                return {
+                  ...initial,
+                  status: match.status !== undefined ? match.status : initial.status,
+                  rating: match.rating !== undefined ? match.rating : initial.rating,
+                  notes: match.notes !== undefined ? match.notes : initial.notes
+                };
+              }
+              return initial;
+            });
             localStorage.setItem(STORAGE_KEY, JSON.stringify(kitas));
             updateStats();
             renderTable();
@@ -1259,6 +1407,19 @@
             </ul>
             ${k.extraFees ? `<div class="fee-extra">ℹ️ ${escapeHtml(k.extraFees)}</div>` : ''}
           </div>
+          ${k.openDay ? `
+            <div class="openday-card">
+              <div class="openday-title">
+                <span>🚪</span>
+                <span>Tag der offenen Tür / Info Day</span>
+                <span class="openday-tag ${k.openDay.tagClass || 'openday-tag-window'}">${escapeHtml(k.openDay.tag)}</span>
+              </div>
+              <div class="openday-details">
+                <strong>📅 ${escapeHtml(k.openDay.date)}</strong><br>
+                ${escapeHtml(k.openDay.details)}
+              </div>
+            </div>
+          ` : ''}
           <div class="quality-notes">
             <span>✨</span>
             <div>${escapeHtml(k.quality || k.features || '')}</div>
@@ -1270,6 +1431,19 @@
         <div class="fee-card">
           <div class="fee-total">💰 ${escapeHtml(k.pricing || 'Subsidized')}</div>
         </div>
+        ${k.openDay ? `
+          <div class="openday-card">
+            <div class="openday-title">
+              <span>🚪</span>
+              <span>Tag der offenen Tür / Info Day</span>
+              <span class="openday-tag ${k.openDay.tagClass || 'openday-tag-window'}">${escapeHtml(k.openDay.tag)}</span>
+            </div>
+            <div class="openday-details">
+              <strong>📅 ${escapeHtml(k.openDay.date)}</strong><br>
+              ${escapeHtml(k.openDay.details)}
+            </div>
+          </div>
+        ` : ''}
         <div class="quality-notes">
           <span>✨</span>
           <div>${escapeHtml(k.features || '')}</div>
